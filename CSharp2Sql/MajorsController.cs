@@ -46,10 +46,10 @@ namespace CSharp2Sql {
 
         public bool Create(Major major) {
             var sql = $"INSERT into Major " +
-                "(Id, Code, Description, MinSat) " +
-                "VALUES (@id, @code, @description, @minsat)";
+                "(Code, Description, MinSat) " +
+                "VALUES (@code, @description, @minsat)";
             var cmd = new SqlCommand(sql, connection.sqlconnection);
-            cmd.Parameters.AddWithValue("@id", major.Id);
+           
             cmd.Parameters.AddWithValue("@code", major.Code);
             cmd.Parameters.AddWithValue("@description", major.Description);
             cmd.Parameters.AddWithValue("@minsat", major.MinSat);

@@ -10,33 +10,40 @@ namespace TestCsharp2Sql {
             var majorController = new MajorsController(conn);
 
             var newMajor = new Major {
-                Id = 0, Code = "UWBW", Description = $"Under Water Basket Weaving", MinSat = 1200
+             Code = "UWB2", Description = $"Under Water Basket Weaving2", MinSat = 1200
             };
-            newMajor.Id = 8;
-            //var CreateNew = majorsController.Create(newMajor);
+
+           
+            var success = majorController.Create(newMajor);
+            Console.WriteLine($"{success}");
+
+            var majorsList = majorController.GetAll();
+            foreach(Major m in majorsList) {
+                Console.WriteLine($"{m.Code}, {m.Description}, {m.MinSat}");
+            }
 
             // here we are creating a connection that allows us to connect and view all the tables without having to multipleclass connections for more tables, we are breaking things up to make it more neat
             //var conn = new Connection();
             //conn.Connect("EdDb");
-            var studentController = new StudentsController(conn);
+            //var studentController = new StudentsController(conn);
 
             //this is for the insert I think?
-            var newStudent = new Student {
-                Id = 0, Firstname = "Joseph", Lastname = "Biden", StateCode = "DC", SAT = 1300, GPA = 3.2m, Major = null
-            };
+            //var newStudent = new Student {
+            //    Id = 0, Firstname = "Joseph", Lastname = "Biden", StateCode = "DC", SAT = 1300, GPA = 3.2m, Major = null
+            //};
             //var success = studentController.Create(newStudent); // commented these out so it stops adding more joes
 
-            newStudent.Id = 61;
-            var success = studentController.Change(newStudent);
+            //newStudent.Id = 61;
+            //var success = studentController.Change(newStudent);
 
 
             //var student = studentController.GetByPk(61); // have becaa explain this 
             //Console.WriteLine($"{student.Id}|{student.Firstname} {student.Lastname}|");
 
-            success = studentController.Remove(61);
-            Console.WriteLine($"Remove worked? {success}");
+            //success = studentController.Remove(61);
+            //Console.WriteLine($"Remove worked? {success}");
 
-            success = studentController.RemovedRanage(63, 64, 65);
+            //success = studentController.RemovedRanage(63, 64, 65);
 
             //var students = studentController.GetAll();
             //foreach(var s in students) {

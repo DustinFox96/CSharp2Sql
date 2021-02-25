@@ -18,7 +18,8 @@ namespace CSharp2Sql {
                         " Code = @code, " +
                         " Subject = @subject, " +
                         " Section = @section, " +
-                        " InstructorId = @instuctorid, " +
+                        " InstructorId = @instuctorid; ";
+            var cmd
 
         }
 
