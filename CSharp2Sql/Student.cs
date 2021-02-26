@@ -10,7 +10,7 @@ namespace CSharp2Sql {
         public string StateCode { get; set; }
         public int SAT { get; set; }
         public decimal GPA { get; set; }
-        public string Major { get; set; } // this was added so we could do a join froms student to major, have becca explain this
+        public int? MajorId { get; set; } // this was added so we could do a join froms student to major, have becca explain this
         //public int? MajorId { get; set; } // the (?) after int means it allows it to be null// sql null and C# null are not the same thing
 
     }

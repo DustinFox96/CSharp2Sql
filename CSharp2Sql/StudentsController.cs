@@ -90,9 +90,7 @@ namespace CSharp2Sql {
 
           
         public List<Student> GetAll() {
-            var sql = "SELECT * From Student s " +
-                " left join Major m on s.MajorId = m.Id " +// we are only doing this here for joins
-                " order by s.Lastname; ";
+            var sql = "SELECT * From Student";
             var cmd = new SqlCommand(sql, connection.sqlconnection);
             var reader = cmd.ExecuteReader();
             var students = new List<Student>();
@@ -104,9 +102,9 @@ namespace CSharp2Sql {
                 student.StateCode = reader["StateCode"].ToString();
                 student.SAT = Convert.ToInt32(reader["SAT"]);
                 student.GPA = Convert.ToDecimal(reader["GPA"]);
-                student.Major = null; // have becca explain this whole thing
-                if (reader["Description"] != System.DBNull.Value) {
-                    student.Major = reader["Description"].ToString();// this was added so we could do a join froms student to major, have becca explain this
+                student.MajorId = null; // have becca explain this whole thing
+                if (reader["MajorId"] != System.DBNull.Value) {
+                    student.MajorId = Convert.ToInt32(reader["MajorId"]);
 
                     //student.MajorId = null; // have becca explain this whole thing
                     //if(reader["MajorId"] != System.DBNull.Value) {

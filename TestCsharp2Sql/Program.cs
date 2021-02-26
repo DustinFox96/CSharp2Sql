@@ -1,26 +1,48 @@
 ﻿using CSharp2Sql;
 using System;
+using System.Linq;
 
 namespace TestCsharp2Sql {
     class Program {  
         static void Main(string[] args) {
+
             var conn = new Connection();
             conn.Connect("EdDb");
+            // new things added as of 2/25 thursday
 
-            var majorController = new MajorsController(conn);
+            var sctrl = new StudentsController(conn);
+            var students = sctrl.GetAll();
 
-            var newMajor = new Major {
-             Code = "UWB2", Description = $"Under Water Basket Weaving2", MinSat = 1200
-            };
+            var mctrl = new MajorsController(conn);
+            var majors = mctrl.GetAll();
+
+            var sm = from s in students
+                     join m in majors
+                     on s.MajorId equals m.Id
+                     select new {
+                         s.Id, Name = s.Firstname + " " + s.Lastname, Major = m.Description
+                     };
+
+            foreach(var s in sm) {
+                Console.WriteLine($"{s.Id} | {s.Name} | {s.Major}");
+            }
+
+            conn.Disconnect();
+
+            //var majorController = new MajorsController(conn);
+
+            //var newMajor = new Major {
+            // Code = "UWB2", Description = $"Under Water Basket Weaving2", MinSat = 1200
+            //};
 
            
-            var success = majorController.Create(newMajor);
-            Console.WriteLine($"{success}");
+            //var success = majorController.Create(newMajor);
+            //Console.WriteLine($"{success}");
 
-            var majorsList = majorController.GetAll();
-            foreach(Major m in majorsList) {
-                Console.WriteLine($"{m.Code}, {m.Description}, {m.MinSat}");
-            }
+            //var majorsList = majorController.GetAll();
+            //foreach(Major m in majorsList) {
+            //    Console.WriteLine($"{m.Code}, {m.Description}, {m.MinSat}");
+            //}
 
             // here we are creating a connection that allows us to connect and view all the tables without having to multipleclass connections for more tables, we are breaking things up to make it more neat
             //var conn = new Connection();
@@ -49,7 +71,6 @@ namespace TestCsharp2Sql {
             //foreach(var s in students) {
             //    Console.WriteLine($"{s.Id}|{s.Firstname} {s.Lastname}|{s.Major}");
             //} // commented these out so it stops adding more joes
-            conn.Disconnect();
            
 
 
